@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel de Control Industrial</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- ══ HEADER ══════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header-brand">
+      <span>🏭</span> Panel de Control
+    </div>
+    <div class="header-divider"></div>
+
+    <!-- Filter buttons -->
+    <nav class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-machine="all">
+        Todos los Activos
+      </button>
+      <button class="filter-btn" data-machine="EC101" style="--mc:#4fc3f7">
+        ⚙️ EC101
+      </button>
+      <button class="filter-btn" data-machine="turbina" style="--mc:#ce93d8">
+        🌀 Turbina
+      </button>
+      <button class="filter-btn" data-machine="caldero" style="--mc:#ffb74d">
+        🔥 Caldero
+      </button>
+      <button class="filter-btn" data-machine="difusor" style="--mc:#80cbc4">
+        💧 Difusor
+      </button>
+      <button class="filter-btn" data-machine="molino" style="--mc:#a5d6a7">
+        🏭 Molino
+      </button>
+    </nav>
+
+    <div class="header-right">
+      <div class="conn-indicator">
+        <span class="status-dot" id="connDot"></span>
+        <span id="connLabel">Conectando…</span>
+      </div>
+      <div class="last-update" id="lastUpdate">—</div>
+      <div class="user-info">👤 <span id="currentUser"></span></div>
+      <form method="POST" action="/logout" style="margin:0">
+        <button type="submit" class="btn-logout">Salir</button>
+      </form>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ════════════════════════════════════════════════ -->
+  <main class="main-content" id="mainContent">
+
+    <!-- Summary bar -->
+    <div class="summary-bar" id="summaryBar">
+      <div class="summary-card normal">
+        <span class="s-icon">🟢</span>
+        <div class="s-info">
+          <div class="s-val" id="sumNormal">—</div>
+          <div class="s-lbl">Activos Normales</div>
+        </div>
+      </div>
+      <div class="summary-card warning">
+        <span class="s-icon">🟡</span>
+        <div class="s-info">
+          <div class="s-val" id="sumWarning">—</div>
+          <div class="s-lbl">Con Advertencia</div>
+        </div>
+      </div>
+      <div class="summary-card alarm">
+        <span class="s-icon">🔴</span>
+        <div class="s-info">
+          <div class="s-val" id="sumAlarm">—</div>
+          <div class="s-lbl">En Alarma</div>
+        </div>
+      </div>
+      <div class="summary-card" style="border-color:rgba(56,139,253,.3)">
+        <span class="s-icon">📡</span>
+        <div class="s-info">
+          <div class="s-val" id="sumTags" style="color:var(--accent)">—</div>
+          <div class="s-lbl">Tags Monitoreados</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Machine sections — rendered by JS -->
+    <div id="machineContainer"></div>
+
+  </main>
+
+  <!-- ══ CHATBOT ═══════════════════════════════════════════ -->
+  <section class="chatbot-panel" id="chatbotPanel">
+    <div class="chatbot-header" id="chatbotToggle">
+      <span class="chat-icon">🤖</span>
+      <h3>Asistente IA — Consultas de Planta</h3>
+      <button class="chatbot-collapse-btn" id="collapseBtn" title="Colapsar">▼</button>
+    </div>
+    <div class="chatbot-body">
+      <div class="chat-messages" id="chatMessages">
+        <!-- Welcome message -->
+        <div class="chat-msg bot">
+          <div class="chat-bubble">
+            Hola 👋 Soy el asistente de planta. Puedes preguntarme sobre el estado de los activos, umbrales de alarma, o cualquier sensor monitoreado.<br><br>
+            <strong>Ejemplos:</strong> "Estado del caldero", "Umbrales de vibración", "Información sobre EC101"
+          </div>
+          <span class="chat-meta">Sistema</span>
+        </div>
+      </div>
+
+      <!-- Quick prompts -->
+      <div class="quick-prompts">
+        <button class="quick-btn" data-msg="Estado general de las máquinas">📊 Estado general</button>
+        <button class="quick-btn" data-msg="Umbrales de alarma">⚠️ Umbrales</button>
+        <button class="quick-btn" data-msg="Información sobre la turbina">🌀 Turbina</button>
+        <button class="quick-btn" data-msg="Información sobre el caldero">🔥 Caldero</button>
+        <button class="quick-btn" data-msg="Vibración y sensores VT">〰️ Vibración</button>
+        <button class="quick-btn" data-msg="Información sobre el difusor">💧 Difusor</button>
+      </div>
+
+      <div class="chat-input-row">
+        <input
+          type="text"
+          id="chatInput"
+          class="chat-input"
+          placeholder="Escribe tu consulta sobre la planta…"
+          maxlength="300"
+          autocomplete="off"
+        >
+        <button class="chat-send-btn" id="chatSend">Enviar ↩</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Socket.io client -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Dashboard logic -->
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
