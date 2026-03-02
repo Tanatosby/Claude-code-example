@@ -62,12 +62,7 @@ http://localhost:3000
 ---
 
 ## Credenciales de acceso
-
-| Usuario    | Contraseña |
-|------------|------------|
-| `admin`    | `admin123` |
-| `operador` | `op2024`   |
-
+contáctame
 ---
 
 ## Estructura del proyecto
