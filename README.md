@@ -18,11 +18,10 @@ Asegúrate de tener instalado:
 ### 2. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/claude-code-example.git
+git clone -b iot --single-branch https://github.com/Tanatosby/claude-code-example.git
 cd claude-code-example
 ```
 
-> Reemplaza `tu-usuario` con tu nombre de usuario de GitHub.
 
 ---
 
